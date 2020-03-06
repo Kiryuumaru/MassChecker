@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -15,48 +16,104 @@ namespace MassChecker.Services
     {
         #region TCP
 
+        private static Action<string> imgDirHandler;
+        private static Action<bool> connectionHandler;
+        private static bool scanning = false;
         private static ReactiveClient client;
-
-        public static Action<string> OnReceived;
 
         public static void Start()
         {
-            client = new ReactiveClient("192.168.254.173", 8000);
+            client = new ReactiveClient("192.168.254.144", 8000);
 
-            string buffer = "";
+            List<byte> buffer = new List<byte>();
             client.Receiver.Subscribe(data =>
             {
-                if (data == 10 || data == 13)
+                buffer.Add(data);
+                if (buffer.Count > 7)
                 {
-                    if (!string.IsNullOrEmpty(buffer))
+                    if (buffer[buffer.Count - 8] == 69 &&
+                        buffer[buffer.Count - 7] == 78 &&
+                        buffer[buffer.Count - 6] == 68 &&
+                        buffer[buffer.Count - 5] == 79 &&
+                        buffer[buffer.Count - 4] == 70 &&
+                        buffer[buffer.Count - 3] == 77 &&
+                        buffer[buffer.Count - 2] == 83 &&
+                        buffer[buffer.Count - 1] == 71)
                     {
-                        OnReceived?.Invoke(buffer);
-                        Console.WriteLine(buffer);
+                        Recieved(buffer.GetRange(0, buffer.Count - 8).ToArray());
+                        buffer.Clear();
                     }
-                    buffer = "";
-                }
-                else
-                {
-                    buffer += Convert.ToChar(data);
                 }
             });
 
             client.ConnectAsync();
             client.Connected += delegate
             {
-                Send("Hellqqsqso");
+                Send("PING");
             };
+            client.Disconnected += delegate { connectionHandler?.Invoke(false); };
         }
 
         private static void Send(string msg)
         {
             if (client == null) return;
-            byte[] bytes = Encoding.UTF8.GetBytes(msg);
+            byte[] bytes = Encoding.UTF8.GetBytes(msg + "ENDOFMSG");
             client.SendAsync(bytes);
+        }
+
+        private static void Recieved(byte[] data)
+        {
+            if (scanning)
+            {
+                scanning = false;
+                string filename = GenerateTempImageName();
+                File.WriteAllBytes(filename, data);
+                imgDirHandler?.Invoke(filename);
+            }
+            connectionHandler?.Invoke(true);
+        }
+
+        private static string GenerateTempImageName()
+        {
+            if (!Directory.Exists(Extension.TempDir)) Directory.CreateDirectory(Extension.TempDir);
+            int index = 1;
+            while (File.Exists(Path.Combine(Extension.TempDir, "temp" + index.ToString("0000") + ".jpg")))
+            {
+                try
+                {
+                    Directory.Delete(Path.Combine(Extension.TempDir), true);
+                    Directory.CreateDirectory(Extension.TempDir);
+                    break;
+                }
+                catch
+                {
+                    index++;
+                }
+            }
+            return Path.Combine(Extension.TempDir, "temp" + index.ToString("0000") + ".jpg");
         }
 
         #endregion
 
+        public static void SetConnectionChangeHandler(Action<bool> handler)
+        {
+            connectionHandler = handler;
+        }
 
+        public static void SetImageScanHandler(Action<string> handler)
+        {
+            imgDirHandler = handler;
+        }
+
+        public static void NextPaper()
+        {
+            Send("NEXT");
+        }
+
+        public static void ScanPaper()
+        {
+            Send("SCAN");
+            scanning = true;
+        }
     }
 }

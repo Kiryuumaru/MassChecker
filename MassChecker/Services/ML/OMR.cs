@@ -40,14 +40,15 @@ namespace MassChecker.Services
 
         public static class OMR
         {
-            private static readonly HaarCascade face = new HaarCascade("haarcascade_frontalface_default.xml");
-            private static readonly List<Image<Gray, byte>> trainingImages = new List<Image<Gray, byte>>();
-            private static readonly List<string> labels = new List<string>();
-            private static readonly EventHandler frameGrabberHandler = new EventHandler(FrameGrabber);
+            private static Rectangle roi = new Rectangle(80, 60, 370, 280);
+            private static int blockSize = 11;
+            private static double param1 = 15;
+            private static int erodeI = 1;
+            private static int dilateI = 1;
 
             private static Capture grabber;
             private static Image<Bgr, byte> currentFrame = null;
-            private static Image<Bgr, byte> resize = null;
+            private static Image<Bgr, byte> crop = null;
             private static Image<Gray, byte> gray = null;
             private static Image<Gray, byte> thres = null;
             private static Image<Gray, byte> erode = null;
@@ -56,81 +57,25 @@ namespace MassChecker.Services
 
             private static ImageBox imageBoxFrameGrabber;
 
-            public static Action<string> OnFaceRecognized;
-
             public static Action<string> Logger;
-            public static bool Started { get; private set; } = false;
-            public static bool ShowLabel { get; set; } = false;
 
-            public static int DistanceDetected { get; private set; } = -1;
-
-            public static void Init()
-            {
-                ML.Init();
-                if (!Directory.Exists(Extension.ImagesDir)) Directory.CreateDirectory(Extension.ImagesDir);
-                try
-                {
-                    foreach (string file in Directory.EnumerateFiles(Extension.ImagesDir, "*.bmp"))
-                    {
-                        string fileName = file.Substring(file.LastIndexOf("\\") + 1);
-                        if (!fileName.Contains("_")) continue;
-                        string label = fileName.Substring(0, fileName.LastIndexOf("_"));
-                        trainingImages.Add(new Image<Gray, byte>(Path.Combine(file)));
-                        labels.Add(label);
-                    }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.ToString());
-                    //MessageBox.Show("Nothing in binary database, please add at least a face(Simply train the prototype with the Add Face Button).", "Triained faces load", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-            }
-
-            public static void StartCamera(ImageBox frameGrabber)
-            {
-                imageBoxFrameGrabber = frameGrabber;
-                grabber = new Capture();
-                grabber.QueryFrame();
-                Application.Idle += frameGrabberHandler;
-                Started = true;
-            }
-
-            public static void StartFile(ImageBox frameGrabber, string filename)
+            public static void ProcessFile(ImageBox frameGrabber, string filename)
             {
                 imageBoxFrameGrabber = frameGrabber;
                 grabber = new Capture(filename);
-                grabber.QueryFrame();
-                Application.Idle += frameGrabberHandler;
-                Started = true;
-            }
-
-            public static void Stop()
-            {
-                Started = false;
-                Application.Idle -= frameGrabberHandler;
-                if (grabber != null)
-                {
-                    grabber.Dispose();
-                    grabber = null;
-                }
-            }
-
-            private static void FrameGrabber(object sender, EventArgs e)
-            {
-                if (!Started) return;
 
                 currentFrame = grabber.QueryFrame();
-                if (currentFrame == null)
-                {
-                    Logger?.Invoke("End of video");
-                    Stop();
-                    return;
-                }
-                resize = currentFrame.Resize(420, 340, INTER.CV_INTER_CUBIC);
-                gray = resize.Convert<Gray, byte>();
-                thres = gray.ThresholdBinary(new Gray(230), new Gray(254));
-                erode = thres.Erode(1);
-                dilate = erode.Dilate(2);
+                crop = currentFrame.Copy(roi);
+                gray = crop.Convert<Gray, byte>();
+
+                thres = new Image<Gray, byte>(new Size(gray.Width, gray.Height));
+                IntPtr srcPtr = gray.Ptr;
+                IntPtr dstPtr = thres.Ptr;
+
+                CvInvoke.cvAdaptiveThreshold(srcPtr, dstPtr, 255, ADAPTIVE_THRESHOLD_TYPE.CV_ADAPTIVE_THRESH_MEAN_C, THRESH.CV_THRESH_BINARY_INV, blockSize, param1);
+
+                erode = thres.Erode(erodeI);
+                dilate = erode.Dilate(dilateI);
 
                 using (MemStorage storage = new MemStorage())
                 {
@@ -150,40 +95,9 @@ namespace MassChecker.Services
                         }
                         contours = contours.HNext;
                     }
-                    List<ContourPair> filtered2 = new List<ContourPair>();
-                    foreach (Contour<Point> c1 in filtered1)
-                    {
-                        foreach (Contour<Point> c2 in filtered1)
-                        {
-                            if (c1 != c2 &&
-                                c1.BoundingRectangle.Y > c2.BoundingRectangle.Y - 5 &&
-                                c1.BoundingRectangle.Y < c2.BoundingRectangle.Y + 5)
-                            {
-                                filtered2.Add(new ContourPair(c1, c2));
-                            }
-                        }
-                    }
-                    List<ContourPair> filtered3 = new List<ContourPair>();
-                    foreach (ContourPair pair in filtered2)
-                    {
-                        if (!filtered3.Any(item => item.Similar(pair)))
-                        {
-                            filtered3.Add(pair);
-                            resize.Draw(pair.C1.BoundingRectangle, new Bgr(255, 0, 0), 1);
-                            resize.Draw(pair.C2.BoundingRectangle, new Bgr(0, 0, 255), 1);
-                        }
-                    }
-                    if (filtered3.Count == 1)
-                    {
-                        double px = filtered3[0].GetDistance();
-                        double px2 = px * 0.5;
-                        double dis = -0.789272 * Math.Log(0.0137459 * px);
-                        Logger?.Invoke("Px = " + px.ToString("0.00") +
-                            " Dis = " + dis.ToString("0.00") + " meters");
-                    }
                 }
 
-                imageBoxFrameGrabber.Image = resize;
+                imageBoxFrameGrabber.Image = crop;
             }
         }
     }

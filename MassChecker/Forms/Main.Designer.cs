@@ -28,128 +28,80 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.buttonClassify = new System.Windows.Forms.Button();
-            this.buttonOpenFile = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxFile = new System.Windows.Forms.TextBox();
-            this.buttonTrain = new System.Windows.Forms.Button();
-            this.textBoxlog = new System.Windows.Forms.TextBox();
-            this.buttonClearLog = new System.Windows.Forms.Button();
+            this.components = new System.ComponentModel.Container();
+            this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonScan = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.imageBoxFrameGrabber1 = new Emgu.CV.UI.ImageBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber1)).BeginInit();
             this.SuspendLayout();
             // 
-            // openFileDialog1
+            // buttonNext
             // 
-            this.openFileDialog1.FileName = "D:\\Desktop\\bibi\\laser2.mp4";
-            this.openFileDialog1.Filter = "MP4 Files|*.mp4";
+            this.buttonNext.Location = new System.Drawing.Point(600, 12);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(75, 23);
+            this.buttonNext.TabIndex = 0;
+            this.buttonNext.Text = "Next";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.ButtonNext_Click);
             // 
-            // buttonClassify
+            // buttonScan
             // 
-            this.buttonClassify.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClassify.Location = new System.Drawing.Point(479, 318);
-            this.buttonClassify.Name = "buttonClassify";
-            this.buttonClassify.Size = new System.Drawing.Size(108, 33);
-            this.buttonClassify.TabIndex = 8;
-            this.buttonClassify.Text = "Start Process";
-            this.buttonClassify.UseVisualStyleBackColor = true;
-            this.buttonClassify.Click += new System.EventHandler(this.ButtonClassify_Click);
+            this.buttonScan.Location = new System.Drawing.Point(600, 41);
+            this.buttonScan.Name = "buttonScan";
+            this.buttonScan.Size = new System.Drawing.Size(75, 23);
+            this.buttonScan.TabIndex = 1;
+            this.buttonScan.Text = "Scan";
+            this.buttonScan.UseVisualStyleBackColor = true;
+            this.buttonScan.Click += new System.EventHandler(this.ButtonScan_Click);
             // 
-            // buttonOpenFile
+            // pictureBox1
             // 
-            this.buttonOpenFile.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOpenFile.Location = new System.Drawing.Point(390, 318);
-            this.buttonOpenFile.Name = "buttonOpenFile";
-            this.buttonOpenFile.Size = new System.Drawing.Size(83, 33);
-            this.buttonOpenFile.TabIndex = 7;
-            this.buttonOpenFile.Text = "Open File";
-            this.buttonOpenFile.UseVisualStyleBackColor = true;
-            this.buttonOpenFile.Click += new System.EventHandler(this.ButtonOpenFile_Click);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(244, 289);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
-            // label2
+            // imageBoxFrameGrabber1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(184, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(295, 37);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Classifying and Sizing";
-            // 
-            // textBoxFile
-            // 
-            this.textBoxFile.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFile.Location = new System.Drawing.Point(16, 323);
-            this.textBoxFile.Multiline = true;
-            this.textBoxFile.Name = "textBoxFile";
-            this.textBoxFile.Size = new System.Drawing.Size(368, 26);
-            this.textBoxFile.TabIndex = 9;
-            // 
-            // buttonTrain
-            // 
-            this.buttonTrain.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonTrain.Location = new System.Drawing.Point(593, 318);
-            this.buttonTrain.Name = "buttonTrain";
-            this.buttonTrain.Size = new System.Drawing.Size(78, 33);
-            this.buttonTrain.TabIndex = 10;
-            this.buttonTrain.Text = "Train";
-            this.buttonTrain.UseVisualStyleBackColor = true;
-            this.buttonTrain.Click += new System.EventHandler(this.ButtonTrain_Click);
-            // 
-            // textBoxlog
-            // 
-            this.textBoxlog.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxlog.Location = new System.Drawing.Point(16, 49);
-            this.textBoxlog.Multiline = true;
-            this.textBoxlog.Name = "textBoxlog";
-            this.textBoxlog.ReadOnly = true;
-            this.textBoxlog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxlog.Size = new System.Drawing.Size(655, 260);
-            this.textBoxlog.TabIndex = 11;
-            // 
-            // buttonClearLog
-            // 
-            this.buttonClearLog.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClearLog.Location = new System.Drawing.Point(593, 16);
-            this.buttonClearLog.Name = "buttonClearLog";
-            this.buttonClearLog.Size = new System.Drawing.Size(78, 33);
-            this.buttonClearLog.TabIndex = 12;
-            this.buttonClearLog.Text = "Clear Log";
-            this.buttonClearLog.UseVisualStyleBackColor = true;
-            this.buttonClearLog.Click += new System.EventHandler(this.ButtonClearLog_Click);
+            this.imageBoxFrameGrabber1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.imageBoxFrameGrabber1.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
+            this.imageBoxFrameGrabber1.Location = new System.Drawing.Point(262, 12);
+            this.imageBoxFrameGrabber1.Name = "imageBoxFrameGrabber1";
+            this.imageBoxFrameGrabber1.Size = new System.Drawing.Size(234, 289);
+            this.imageBoxFrameGrabber1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imageBoxFrameGrabber1.TabIndex = 13;
+            this.imageBoxFrameGrabber1.TabStop = false;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(687, 361);
-            this.Controls.Add(this.buttonClearLog);
-            this.Controls.Add(this.textBoxlog);
-            this.Controls.Add(this.buttonTrain);
-            this.Controls.Add(this.buttonClassify);
-            this.Controls.Add(this.buttonOpenFile);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBoxFile);
+            this.ClientSize = new System.Drawing.Size(687, 438);
+            this.Controls.Add(this.imageBoxFrameGrabber1);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.buttonScan);
+            this.Controls.Add(this.buttonNext);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Main";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "Isda Best";
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Main_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Main_DragEnter);
+            this.Text = "Mass Checker";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button buttonClassify;
-        private System.Windows.Forms.Button buttonOpenFile;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxFile;
-        private System.Windows.Forms.Button buttonTrain;
-        private System.Windows.Forms.TextBox textBoxlog;
-        private System.Windows.Forms.Button buttonClearLog;
+        private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Button buttonScan;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private Emgu.CV.UI.ImageBox imageBoxFrameGrabber1;
     }
 }

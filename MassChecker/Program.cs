@@ -16,8 +16,6 @@ namespace MassChecker
         [STAThread]
         static void Main()
         {
-            ML.Init();
-            Scanner.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main());
