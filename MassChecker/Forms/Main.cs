@@ -14,17 +14,18 @@ namespace MassChecker.Forms
 {
     public partial class Main : Form
     {
+        private bool checkingStarted = false;
+        private string imageFilename = "";
+
         public Main()
         {
             InitializeComponent();
-            buttonNext.Enabled = false;
-            buttonScan.Enabled = false;
+            buttonStart.Enabled = false;
             Scanner.SetConnectionChangeHandler(connected =>
             {
                 Invoke(new MethodInvoker(delegate
                 {
-                    buttonNext.Enabled = connected;
-                    buttonScan.Enabled = connected;
+                    buttonStart.Enabled = connected;
                     if (!connected)
                     {
                         if (MessageBox.Show("Scanner was disconnected", "Disconnected", MessageBoxButtons.RetryCancel, MessageBoxIcon.Information) == DialogResult.Retry)
@@ -36,13 +37,8 @@ namespace MassChecker.Forms
             });
             Scanner.SetImageScanHandler(imgDir =>
             {
-                Invoke(new MethodInvoker(delegate
-                {
-                    pictureBox1.Image = Image.FromFile(imgDir);
-                    pictureBox1.Invalidate();
-                    //MessageBox.Show("Image received.", "Image received", MessageBoxButtons.OK);
-                }));
-                ML.OMR.ProcessFile(imageBoxFrameGrabber1, imgDir);
+                imageFilename = imgDir;
+                Log("Image fetched");
 
             });
             Scanner.Start();
@@ -51,56 +47,113 @@ namespace MassChecker.Forms
 
         private void Log(string line)
         {
-            //line = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + " " + line;
-            //try
-            //{
-            //    if (!string.IsNullOrEmpty(textBoxlog.Text)) textBoxlog.AppendText(Environment.NewLine);
-            //    textBoxlog.AppendText(line);
-            //}
-            //catch
-            //{
-            //    try
-            //    {
-            //        Invoke(new MethodInvoker(delegate
-            //        {
-            //            if (!string.IsNullOrEmpty(textBoxlog.Text)) textBoxlog.AppendText(Environment.NewLine);
-            //            textBoxlog.AppendText(line);
-            //        }));
-            //    }
-            //    catch { }
-            //}
+            line = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + " " + line;
+            try
+            {
+                if (!string.IsNullOrEmpty(textBoxlog.Text)) textBoxlog.AppendText(Environment.NewLine);
+                textBoxlog.AppendText(line);
+            }
+            catch
+            {
+                try
+                {
+                    Invoke(new MethodInvoker(delegate
+                    {
+                        if (!string.IsNullOrEmpty(textBoxlog.Text)) textBoxlog.AppendText(Environment.NewLine);
+                        textBoxlog.AppendText(line);
+                    }));
+                }
+                catch { }
+            }
         }
 
-        private bool GetFilename(out string filename, DragEventArgs e)
+        private void NumericUpDownIterations_ValueChanged(object sender, EventArgs e)
         {
-            bool ret = false;
-            filename = string.Empty;
-            if ((e.AllowedEffect & DragDropEffects.Copy) == DragDropEffects.Copy)
+            int intVal = Convert.ToInt32(numericUpDownIterations.Value);
+            if (numericUpDownIterations.Value != intVal) numericUpDownIterations.Value = intVal;
+        }
+
+        private void ButtonBrowse_Click(object sender, EventArgs e)
+        {
+            var folderBrowserDialog1 = new FolderBrowserDialog
             {
-                if (e.Data.GetData("FileDrop") is Array data)
+                ShowNewFolderButton = true,
+                Description = "Choose folder to output checker results"
+            };
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                textBoxOutputDir.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            ML.OMR.ProcessFile(imageBoxFrameGrabber1, Path.Combine(Extension.TempDir, "temp0001.jpg"));
+        }
+
+        private void ButtonStart_Click(object sender, EventArgs e)
+        {
+            if (checkingStarted)
+            {
+                checkingStarted = false;
+                buttonStart.Enabled = false;
+                Log("Iteration: Cancelling . . .");
+            }
+            else
+            {
+                if (!Directory.Exists(textBoxOutputDir.Text))
                 {
-                    if ((data.Length == 1) && (data.GetValue(0) is string))
+                    MessageBox.Show("Output folder does not exist", "Invalid Output Folder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    checkingStarted = true;
+                    textBoxOutputDir.Enabled = false;
+                    numericUpDownIterations.Enabled = false;
+                    buttonBrowse.Enabled = false;
+                    buttonEdit.Enabled = false;
+                    buttonStart.Text = "Cancel";
+                    Task.Run(async delegate
                     {
-                        filename = ((string[])data)[0];
-                        string ext = Path.GetExtension(filename).ToLower();
-                        if (ext == ".mp4")
+                        try
                         {
-                            ret = true;
+                            for (int i = 0; i < numericUpDownIterations.Value && checkingStarted; i++)
+                            {
+                                Log("Iteration: " + (i + 1).ToString());
+                                Scanner.NextPaper();
+                                await Task.Delay(1000);
+                                Scanner.ScanPaper();
+                                imageFilename = "";
+                                while (string.IsNullOrEmpty(imageFilename)) { }
+                                Log("Procesing image . . .");
+                                ML.OMR.ProcessFile(imageBoxFrameGrabber1, imageFilename);
+                                imageBoxFrameGrabber1.Image.Save(Path.Combine(textBoxOutputDir.Text, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".jpg"));
+                                Log("Image processed");
+                            }
+                            Log("Iteration: Done");
                         }
-                    }
+                        catch
+                        {
+                            Log("Iteration: Error");
+                        }
+                        checkingStarted = false;
+                        Invoke(new MethodInvoker(delegate
+                        {
+                            textBoxOutputDir.Enabled = true;
+                            numericUpDownIterations.Enabled = true;
+                            buttonBrowse.Enabled = true;
+                            buttonEdit.Enabled = true;
+                            buttonStart.Text = "Start Checking";
+                        }));
+                    });
                 }
             }
-            return ret;
         }
 
-        private void ButtonNext_Click(object sender, EventArgs e)
+        private void buttonEdit_Click(object sender, EventArgs e)
         {
-            Scanner.NextPaper();
-        }
-
-        private void ButtonScan_Click(object sender, EventArgs e)
-        {
-            Scanner.ScanPaper();
+            new AnswerKey().ShowDialog();
         }
     }
 }
