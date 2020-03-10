@@ -20,12 +20,6 @@ namespace MassChecker.Services
     {
         public static class OMR
         {
-            private static Rectangle roi = new Rectangle(215, 190, 810, 1125);
-            private static int blockSize = 51;
-            private static double param1 = 15;
-            private static int erodeI = 3;
-            private static int dilateI = 3;
-
             private static Anchor anchor;
             private static AnchorDiagnostics anchorDiag;
             private static Capture grabber;
@@ -40,16 +34,80 @@ namespace MassChecker.Services
 
             public static Action Logger;
 
-            public static void ProcessFile(ImageBox frameGrabber, string filename)
+            public static void ProcessFile(AssessmentType type, ImageBox frameGrabber, string filename)
             {
-                anchor = new Anchor(roi.Width, roi.Height, PartialDB.GetAssessment());
+                Rectangle roi = new Rectangle(180, 155, 810, 1125);
+                int blockSize = 51;
+                double param1 = 15;
+                int erodeI = 3;
+                int dilateI = 3;
+                int minRectSide = 10;
+                int maxRectSide = 50;
+                switch (type)
+                {
+                    case AssessmentType.Item50:
+                        roi = new Rectangle(180, 155, 810, 1125);
+                        blockSize = 51;
+                        param1 = 15;
+                        erodeI = 3;
+                        dilateI = 3;
+                        minRectSide = 10;
+                        maxRectSide = 50;
+                        break;
+                    case AssessmentType.Item60:
+                        roi = new Rectangle(180, 155, 810, 1125);
+                        blockSize = 51;
+                        param1 = 15;
+                        erodeI = 3;
+                        dilateI = 3;
+                        minRectSide = 10;
+                        maxRectSide = 50;
+                        break;
+                    case AssessmentType.Item70:
+                        roi = new Rectangle(180, 155, 810, 1125);
+                        blockSize = 51;
+                        param1 = 15;
+                        erodeI = 3;
+                        dilateI = 3;
+                        minRectSide = 10;
+                        maxRectSide = 50;
+                        break;
+                    case AssessmentType.Item80:
+                        roi = new Rectangle(180, 155, 810, 1125);
+                        blockSize = 51;
+                        param1 = 15;
+                        erodeI = 3;
+                        dilateI = 3;
+                        minRectSide = 10;
+                        maxRectSide = 50;
+                        break;
+                    case AssessmentType.Item90:
+                        roi = new Rectangle(180, 155, 810, 1110);
+                        blockSize = 51;
+                        param1 = 15;
+                        erodeI = 3;
+                        dilateI = 3;
+                        minRectSide = 10;
+                        maxRectSide = 50;
+                        break;
+                    case AssessmentType.Item100:
+                        roi = new Rectangle(180, 155, 810, 1110);
+                        blockSize = 51;
+                        param1 = 15;
+                        erodeI = 3;
+                        dilateI = 3;
+                        minRectSide = 10;
+                        maxRectSide = 50;
+                        break;
+                }
+
+                anchor = new Anchor(roi.Width, roi.Height, PartialDB.GetAssessment(type));
                 anchorDiag = new AnchorDiagnostics(anchor);
                 imageBoxFrameGrabber = frameGrabber;
                 grabber = new Capture(filename);
 
                 currentFrame = grabber.QueryFrame();
                 crop = currentFrame.Copy(roi);
-                //result = crop.Resize(baseWidth, baseHeight, INTER.CV_INTER_AREA);
                 gray = crop.Convert<Gray, byte>();
 
                 thres = new Image<Gray, byte>(new Size(gray.Width, gray.Height));
@@ -68,10 +126,10 @@ namespace MassChecker.Services
                     while (contours != null)
                     {
                         Contour<Point> currentContour = contours.ApproxPoly(contours.Perimeter * 0.015, storage);
-                        if (currentContour.BoundingRectangle.Width > 10 &&
-                            currentContour.BoundingRectangle.Width < 50 &&
-                            currentContour.BoundingRectangle.Height > 10 &&
-                            currentContour.BoundingRectangle.Height < 50)
+                        if (currentContour.BoundingRectangle.Width > minRectSide &&
+                            currentContour.BoundingRectangle.Width < maxRectSide &&
+                            currentContour.BoundingRectangle.Height > minRectSide &&
+                            currentContour.BoundingRectangle.Height < maxRectSide)
                         {
                             filtered1.Add(new Geometry.Shade(
                                 currentContour.BoundingRectangle.X,
@@ -83,7 +141,7 @@ namespace MassChecker.Services
                     }
                 }
                 anchor.Process(filtered1);
-                anchorDiag.DrawNormal(crop);
+                anchorDiag.DrawDiagnostics(crop);
                 imageBoxFrameGrabber.Image = crop;
             }
         }

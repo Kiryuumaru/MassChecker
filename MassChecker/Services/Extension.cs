@@ -12,7 +12,12 @@ namespace MassChecker.Services
         public static readonly string AssetsDir = Path.Combine(Environment.CurrentDirectory, "Assets");
         public static readonly string ImagesDir = Path.Combine(AssetsDir, "Images");
         public static readonly string TempDir = Path.Combine(AssetsDir, "~Temp");
-        public static readonly string Blob = Path.Combine(AssetsDir, "blob.blob");
+        public static readonly string Item50 = Path.Combine(AssetsDir, "item50.blob");
+        public static readonly string Item60 = Path.Combine(AssetsDir, "item60.blob");
+        public static readonly string Item70 = Path.Combine(AssetsDir, "item70.blob");
+        public static readonly string Item80 = Path.Combine(AssetsDir, "item80.blob");
+        public static readonly string Item90 = Path.Combine(AssetsDir, "item90.blob");
+        public static readonly string Item100 = Path.Combine(AssetsDir, "item100.blob");
 
         public static class Helpers
         {

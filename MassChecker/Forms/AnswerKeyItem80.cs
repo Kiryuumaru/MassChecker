@@ -13,15 +13,15 @@ using System.Windows.Forms;
 
 namespace MassChecker.Forms
 {
-    public partial class AnswerKey : Form
+    public partial class AnswerKeyItem80 : Form
     {
         public AssessmentSet assessmentSet;
         public Assessment assessment;
 
-        public AnswerKey()
+        public AnswerKeyItem80()
         {
             InitializeComponent();
-            assessment = PartialDB.GetAssessment();
+            assessment = PartialDB.GetAssessment(AssessmentType.Item80);
             comboBoxSet.SelectedIndex = 0;
             numericUpDownPassingRate.Value = (decimal)assessment.PassingRate;
         }
@@ -30,7 +30,7 @@ namespace MassChecker.Forms
         {
             if (assessmentSet == AssessmentSet.SetB) assessment.SetBEnabled = checkBoxEnabled.Checked;
             else if (assessmentSet == AssessmentSet.SetC) assessment.SetCEnabled = checkBoxEnabled.Checked;
-            AssessmentItem[] assessmentItems = new AssessmentItem[60];
+            AssessmentItem[] assessmentItems = Assessment.CreateItems(assessment.AssessmentType);
             assessmentItems[0] = new AssessmentItem(keyHolder1.Get());
             assessmentItems[1] = new AssessmentItem(keyHolder2.Get());
             assessmentItems[2] = new AssessmentItem(keyHolder3.Get());
@@ -91,6 +91,26 @@ namespace MassChecker.Forms
             assessmentItems[57] = new AssessmentItem(keyHolder58.Get());
             assessmentItems[58] = new AssessmentItem(keyHolder59.Get());
             assessmentItems[59] = new AssessmentItem(keyHolder60.Get());
+            assessmentItems[60] = new AssessmentItem(keyHolder61.Get());
+            assessmentItems[61] = new AssessmentItem(keyHolder62.Get());
+            assessmentItems[62] = new AssessmentItem(keyHolder63.Get());
+            assessmentItems[63] = new AssessmentItem(keyHolder64.Get());
+            assessmentItems[64] = new AssessmentItem(keyHolder65.Get());
+            assessmentItems[65] = new AssessmentItem(keyHolder66.Get());
+            assessmentItems[66] = new AssessmentItem(keyHolder67.Get());
+            assessmentItems[67] = new AssessmentItem(keyHolder68.Get());
+            assessmentItems[68] = new AssessmentItem(keyHolder69.Get());
+            assessmentItems[69] = new AssessmentItem(keyHolder70.Get());
+            assessmentItems[70] = new AssessmentItem(keyHolder71.Get());
+            assessmentItems[71] = new AssessmentItem(keyHolder72.Get());
+            assessmentItems[72] = new AssessmentItem(keyHolder73.Get());
+            assessmentItems[73] = new AssessmentItem(keyHolder74.Get());
+            assessmentItems[74] = new AssessmentItem(keyHolder75.Get());
+            assessmentItems[75] = new AssessmentItem(keyHolder76.Get());
+            assessmentItems[76] = new AssessmentItem(keyHolder77.Get());
+            assessmentItems[77] = new AssessmentItem(keyHolder78.Get());
+            assessmentItems[78] = new AssessmentItem(keyHolder79.Get());
+            assessmentItems[79] = new AssessmentItem(keyHolder80.Get());
             assessment.SetItems(assessmentItems, assessmentSet);
             assessment.PassingRate = (double)numericUpDownPassingRate.Value;
             PartialDB.SetAssessment(assessment);
@@ -177,6 +197,26 @@ namespace MassChecker.Forms
             keyHolder58.Set(58, assessment.GetItems(assessmentSet)[57].Key);
             keyHolder59.Set(59, assessment.GetItems(assessmentSet)[58].Key);
             keyHolder60.Set(60, assessment.GetItems(assessmentSet)[59].Key);
+            keyHolder61.Set(61, assessment.GetItems(assessmentSet)[60].Key);
+            keyHolder62.Set(62, assessment.GetItems(assessmentSet)[61].Key);
+            keyHolder63.Set(63, assessment.GetItems(assessmentSet)[62].Key);
+            keyHolder64.Set(64, assessment.GetItems(assessmentSet)[63].Key);
+            keyHolder65.Set(65, assessment.GetItems(assessmentSet)[64].Key);
+            keyHolder66.Set(66, assessment.GetItems(assessmentSet)[65].Key);
+            keyHolder67.Set(67, assessment.GetItems(assessmentSet)[66].Key);
+            keyHolder68.Set(68, assessment.GetItems(assessmentSet)[67].Key);
+            keyHolder69.Set(69, assessment.GetItems(assessmentSet)[68].Key);
+            keyHolder70.Set(70, assessment.GetItems(assessmentSet)[69].Key);
+            keyHolder71.Set(71, assessment.GetItems(assessmentSet)[70].Key);
+            keyHolder72.Set(72, assessment.GetItems(assessmentSet)[71].Key);
+            keyHolder73.Set(73, assessment.GetItems(assessmentSet)[72].Key);
+            keyHolder74.Set(74, assessment.GetItems(assessmentSet)[73].Key);
+            keyHolder75.Set(75, assessment.GetItems(assessmentSet)[74].Key);
+            keyHolder76.Set(76, assessment.GetItems(assessmentSet)[75].Key);
+            keyHolder77.Set(77, assessment.GetItems(assessmentSet)[76].Key);
+            keyHolder78.Set(78, assessment.GetItems(assessmentSet)[77].Key);
+            keyHolder79.Set(79, assessment.GetItems(assessmentSet)[78].Key);
+            keyHolder80.Set(80, assessment.GetItems(assessmentSet)[79].Key);
         }
     }
 }

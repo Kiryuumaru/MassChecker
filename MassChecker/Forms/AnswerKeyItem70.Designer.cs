@@ -1,6 +1,6 @@
 ﻿namespace MassChecker.Forms
 {
-    partial class AnswerKey
+    partial class AnswerKeyItem70
     {
         /// <summary>
         /// Required designer variable.
@@ -108,6 +108,21 @@
             this.checkBoxEnabled = new System.Windows.Forms.CheckBox();
             this.numericUpDownPassingRate = new System.Windows.Forms.NumericUpDown();
             this.label16 = new System.Windows.Forms.Label();
+            this.keyHolder61 = new MassChecker.Controls.KeyHolder();
+            this.keyHolder62 = new MassChecker.Controls.KeyHolder();
+            this.keyHolder63 = new MassChecker.Controls.KeyHolder();
+            this.keyHolder64 = new MassChecker.Controls.KeyHolder();
+            this.keyHolder65 = new MassChecker.Controls.KeyHolder();
+            this.keyHolder66 = new MassChecker.Controls.KeyHolder();
+            this.keyHolder67 = new MassChecker.Controls.KeyHolder();
+            this.keyHolder68 = new MassChecker.Controls.KeyHolder();
+            this.keyHolder69 = new MassChecker.Controls.KeyHolder();
+            this.keyHolder70 = new MassChecker.Controls.KeyHolder();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPassingRate)).BeginInit();
             this.SuspendLayout();
             // 
@@ -684,7 +699,7 @@
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.Location = new System.Drawing.Point(351, 12);
+            this.buttonSave.Location = new System.Drawing.Point(426, 10);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 86;
@@ -701,7 +716,7 @@
             "Set A",
             "Set B",
             "Set C"});
-            this.comboBoxSet.Location = new System.Drawing.Point(173, 14);
+            this.comboBoxSet.Location = new System.Drawing.Point(248, 12);
             this.comboBoxSet.Name = "comboBoxSet";
             this.comboBoxSet.Size = new System.Drawing.Size(95, 21);
             this.comboBoxSet.TabIndex = 87;
@@ -711,7 +726,7 @@
             // 
             this.checkBoxEnabled.AutoSize = true;
             this.checkBoxEnabled.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnabled.Location = new System.Drawing.Point(278, 16);
+            this.checkBoxEnabled.Location = new System.Drawing.Point(353, 14);
             this.checkBoxEnabled.Name = "checkBoxEnabled";
             this.checkBoxEnabled.Size = new System.Drawing.Size(67, 17);
             this.checkBoxEnabled.TabIndex = 88;
@@ -721,7 +736,7 @@
             // numericUpDownPassingRate
             // 
             this.numericUpDownPassingRate.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownPassingRate.Location = new System.Drawing.Point(84, 14);
+            this.numericUpDownPassingRate.Location = new System.Drawing.Point(159, 12);
             this.numericUpDownPassingRate.Name = "numericUpDownPassingRate";
             this.numericUpDownPassingRate.Size = new System.Drawing.Size(83, 22);
             this.numericUpDownPassingRate.TabIndex = 89;
@@ -730,17 +745,152 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(12, 17);
+            this.label16.Location = new System.Drawing.Point(87, 15);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(71, 13);
             this.label16.TabIndex = 90;
             this.label16.Text = "Passing rate:";
             // 
-            // AnswerKey
+            // keyHolder61
+            // 
+            this.keyHolder61.Location = new System.Drawing.Point(442, 60);
+            this.keyHolder61.Name = "keyHolder61";
+            this.keyHolder61.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder61.TabIndex = 100;
+            // 
+            // keyHolder62
+            // 
+            this.keyHolder62.Location = new System.Drawing.Point(442, 85);
+            this.keyHolder62.Name = "keyHolder62";
+            this.keyHolder62.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder62.TabIndex = 99;
+            // 
+            // keyHolder63
+            // 
+            this.keyHolder63.Location = new System.Drawing.Point(442, 110);
+            this.keyHolder63.Name = "keyHolder63";
+            this.keyHolder63.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder63.TabIndex = 98;
+            // 
+            // keyHolder64
+            // 
+            this.keyHolder64.Location = new System.Drawing.Point(442, 135);
+            this.keyHolder64.Name = "keyHolder64";
+            this.keyHolder64.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder64.TabIndex = 97;
+            // 
+            // keyHolder65
+            // 
+            this.keyHolder65.Location = new System.Drawing.Point(442, 160);
+            this.keyHolder65.Name = "keyHolder65";
+            this.keyHolder65.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder65.TabIndex = 96;
+            // 
+            // keyHolder66
+            // 
+            this.keyHolder66.Location = new System.Drawing.Point(442, 185);
+            this.keyHolder66.Name = "keyHolder66";
+            this.keyHolder66.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder66.TabIndex = 95;
+            // 
+            // keyHolder67
+            // 
+            this.keyHolder67.Location = new System.Drawing.Point(442, 210);
+            this.keyHolder67.Name = "keyHolder67";
+            this.keyHolder67.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder67.TabIndex = 94;
+            // 
+            // keyHolder68
+            // 
+            this.keyHolder68.Location = new System.Drawing.Point(442, 235);
+            this.keyHolder68.Name = "keyHolder68";
+            this.keyHolder68.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder68.TabIndex = 93;
+            // 
+            // keyHolder69
+            // 
+            this.keyHolder69.Location = new System.Drawing.Point(442, 260);
+            this.keyHolder69.Name = "keyHolder69";
+            this.keyHolder69.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder69.TabIndex = 92;
+            // 
+            // keyHolder70
+            // 
+            this.keyHolder70.Location = new System.Drawing.Point(442, 285);
+            this.keyHolder70.Name = "keyHolder70";
+            this.keyHolder70.Size = new System.Drawing.Size(126, 19);
+            this.keyHolder70.TabIndex = 91;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(551, 44);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(13, 13);
+            this.label17.TabIndex = 105;
+            this.label17.Text = "E";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(531, 44);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(15, 13);
+            this.label18.TabIndex = 104;
+            this.label18.Text = "D";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(511, 44);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(14, 13);
+            this.label19.TabIndex = 103;
+            this.label19.Text = "C";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(491, 44);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(14, 13);
+            this.label20.TabIndex = 102;
+            this.label20.Text = "B";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(471, 44);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(14, 13);
+            this.label21.TabIndex = 101;
+            this.label21.Text = "A";
+            // 
+            // AnswerKeyItem70
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 566);
+            this.ClientSize = new System.Drawing.Size(581, 566);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.keyHolder61);
+            this.Controls.Add(this.keyHolder62);
+            this.Controls.Add(this.keyHolder63);
+            this.Controls.Add(this.keyHolder64);
+            this.Controls.Add(this.keyHolder65);
+            this.Controls.Add(this.keyHolder66);
+            this.Controls.Add(this.keyHolder67);
+            this.Controls.Add(this.keyHolder68);
+            this.Controls.Add(this.keyHolder69);
+            this.Controls.Add(this.keyHolder70);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.numericUpDownPassingRate);
             this.Controls.Add(this.checkBoxEnabled);
@@ -824,7 +974,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "AnswerKey";
+            this.Name = "AnswerKeyItem70";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -918,5 +1068,20 @@
         private System.Windows.Forms.CheckBox checkBoxEnabled;
         private System.Windows.Forms.NumericUpDown numericUpDownPassingRate;
         private System.Windows.Forms.Label label16;
+        private Controls.KeyHolder keyHolder61;
+        private Controls.KeyHolder keyHolder62;
+        private Controls.KeyHolder keyHolder63;
+        private Controls.KeyHolder keyHolder64;
+        private Controls.KeyHolder keyHolder65;
+        private Controls.KeyHolder keyHolder66;
+        private Controls.KeyHolder keyHolder67;
+        private Controls.KeyHolder keyHolder68;
+        private Controls.KeyHolder keyHolder69;
+        private Controls.KeyHolder keyHolder70;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
     }
 }

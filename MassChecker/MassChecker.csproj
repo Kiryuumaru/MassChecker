@@ -78,11 +78,47 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Diagnostics\AnchorDiagnostics.cs" />
-    <Compile Include="Forms\AnswerKey.cs">
+    <Compile Include="Forms\AnswerKeyItem100.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AnswerKey.Designer.cs">
-      <DependentUpon>AnswerKey.cs</DependentUpon>
+    <Compile Include="Forms\AnswerKeyItem100.Designer.cs">
+      <DependentUpon>AnswerKeyItem100.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TypeChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TypeChooser.Designer.cs">
+      <DependentUpon>TypeChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem90.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem90.Designer.cs">
+      <DependentUpon>AnswerKeyItem90.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem80.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem80.Designer.cs">
+      <DependentUpon>AnswerKeyItem80.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem70.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem70.Designer.cs">
+      <DependentUpon>AnswerKeyItem70.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem60.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem60.Designer.cs">
+      <DependentUpon>AnswerKeyItem60.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem50.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AnswerKeyItem50.Designer.cs">
+      <DependentUpon>AnswerKeyItem50.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
@@ -111,8 +147,26 @@
     <EmbeddedResource Include="Controls\Key.resx">
       <DependentUpon>Key.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AnswerKey.resx">
-      <DependentUpon>AnswerKey.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\AnswerKeyItem100.resx">
+      <DependentUpon>AnswerKeyItem100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TypeChooser.resx">
+      <DependentUpon>TypeChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AnswerKeyItem90.resx">
+      <DependentUpon>AnswerKeyItem90.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AnswerKeyItem80.resx">
+      <DependentUpon>AnswerKeyItem80.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AnswerKeyItem70.resx">
+      <DependentUpon>AnswerKeyItem70.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AnswerKeyItem60.resx">
+      <DependentUpon>AnswerKeyItem60.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AnswerKeyItem50.resx">
+      <DependentUpon>AnswerKeyItem50.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

@@ -1,4 +1,5 @@
-﻿using MassChecker.Services;
+﻿using MassChecker.Models;
+using MassChecker.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,10 +17,45 @@ namespace MassChecker.Forms
     {
         private bool checkingStarted = false;
         private string imageFilename = "";
+        private AssessmentType assessmentType;
 
         public Main()
         {
             InitializeComponent();
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            TypeChooser typeChooser = new TypeChooser();
+            typeChooser.ShowDialog();
+            if (!typeChooser.HasChosen)
+            {
+                Close();
+                return;
+            }
+            assessmentType = typeChooser.AssessmentType;
+            switch (assessmentType)
+            {
+                case AssessmentType.Item50:
+                    Text = "Mass Checker (50 items)";
+                    break;
+                case AssessmentType.Item60:
+                    Text = "Mass Checker (60 items)";
+                    break;
+                case AssessmentType.Item70:
+                    Text = "Mass Checker (70 items)";
+                    break;
+                case AssessmentType.Item80:
+                    Text = "Mass Checker (80 items)";
+                    break;
+                case AssessmentType.Item90:
+                    Text = "Mass Checker (90 items)";
+                    break;
+                case AssessmentType.Item100:
+                    Text = "Mass Checker (100 items)";
+                    break;
+            }
             buttonStart.Enabled = false;
             Scanner.SetConnectionChangeHandler(connected =>
             {
@@ -89,7 +125,7 @@ namespace MassChecker.Forms
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            ML.OMR.ProcessFile(imageBoxFrameGrabber1, Path.Combine(Extension.TempDir, "temp0001.jpg"));
+            ML.OMR.ProcessFile(assessmentType, imageBoxFrameGrabber1, Path.Combine(Extension.TempDir, "temp0001.jpg"));
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
@@ -127,7 +163,7 @@ namespace MassChecker.Forms
                                 imageFilename = "";
                                 while (string.IsNullOrEmpty(imageFilename)) { }
                                 Log("Procesing image . . .");
-                                ML.OMR.ProcessFile(imageBoxFrameGrabber1, imageFilename);
+                                ML.OMR.ProcessFile(assessmentType, imageBoxFrameGrabber1, imageFilename);
                                 imageBoxFrameGrabber1.Image.Save(Path.Combine(textBoxOutputDir.Text, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".jpg"));
                                 Log("Image processed");
                             }
@@ -151,9 +187,29 @@ namespace MassChecker.Forms
             }
         }
 
-        private void buttonEdit_Click(object sender, EventArgs e)
+        private void ButtonEdit_Click(object sender, EventArgs e)
         {
-            new AnswerKey().ShowDialog();
+            switch (assessmentType)
+            {
+                case AssessmentType.Item50:
+                    new AnswerKeyItem50().ShowDialog();
+                    break;
+                case AssessmentType.Item60:
+                    new AnswerKeyItem60().ShowDialog();
+                    break;
+                case AssessmentType.Item70:
+                    new AnswerKeyItem70().ShowDialog();
+                    break;
+                case AssessmentType.Item80:
+                    new AnswerKeyItem80().ShowDialog();
+                    break;
+                case AssessmentType.Item90:
+                    new AnswerKeyItem90().ShowDialog();
+                    break;
+                case AssessmentType.Item100:
+                    new AnswerKeyItem100().ShowDialog();
+                    break;
+            }
         }
     }
 }

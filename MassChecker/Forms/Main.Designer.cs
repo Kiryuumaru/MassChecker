@@ -148,7 +148,7 @@
             this.buttonEdit.TabIndex = 21;
             this.buttonEdit.Text = "Edit key";
             this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
+            this.buttonEdit.Click += new System.EventHandler(this.ButtonEdit_Click);
             // 
             // buttonBrowse
             // 
