@@ -25,7 +25,6 @@ namespace MassChecker.Services
             private static Capture grabber;
             private static Image<Bgr, byte> currentFrame = null;
             private static Image<Bgr, byte> crop = null;
-            private static Image<Bgr, byte> paperPerspective = null;
             private static Image<Gray, byte> gray = null;
             private static Image<Gray, byte> thres = null;
             private static Image<Gray, byte> erode = null;
@@ -141,29 +140,7 @@ namespace MassChecker.Services
                 }
                 anchor.Process(filtered1);
                 anchorDiag.DrawNormal(crop);
-
-                if (anchor.IsResultReady)
-                {
-                    var matrix = CvInvoke.cvGetAffineTransform(new PointF[]
-                    {
-                        new PointF(anchor.PaperParser.TLPoint.Center.X, anchor.PaperParser.TLPoint.Center.Y),
-                        new PointF(anchor.PaperParser.TRPoint.Center.X, anchor.PaperParser.TRPoint.Center.Y),
-                        new PointF(anchor.PaperParser.BLPoint.Center.X, anchor.PaperParser.BLPoint.Center.Y),
-                        new PointF(anchor.PaperParser.BRPoint.Center.X, anchor.PaperParser.BRPoint.Center.Y)
-                    }, new PointF[]
-                    {
-                        new PointF(0, 0),
-                        new PointF(crop.Width, 0),
-                        new PointF(crop.Width, crop.Height),
-                        new PointF(0, crop.Height)
-                    }, crop.Ptr);
-
-                    paperPerspective = new Image<Bgr, byte>(new Size(crop.Width, crop.Height));
-
-                    CvInvoke.cvWarpAffine(crop.Ptr, paperPerspective.Ptr, matrix, (int)INTER.CV_INTER_LINEAR, new MCvScalar(crop.Width, crop.Height));
-
-                    imageBoxFrameGrabber.Image = paperPerspective;
-                }
+                imageBoxFrameGrabber.Image = crop;
             }
         }
     }
