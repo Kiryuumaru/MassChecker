@@ -69,7 +69,7 @@ namespace MassChecker.Services
                         param1 = 15;
                         erodeI = 3;
                         dilateI = 3;
-                        minRectSide = 10;
+                        minRectSide = 7;
                         maxRectSide = 50;
                         break;
                     case AssessmentType.Item80:
@@ -78,25 +78,25 @@ namespace MassChecker.Services
                         param1 = 15;
                         erodeI = 3;
                         dilateI = 3;
-                        minRectSide = 10;
+                        minRectSide = 7;
                         maxRectSide = 50;
                         break;
                     case AssessmentType.Item90:
-                        roi = new Rectangle(180, 155, 810, 1110);
+                        roi = new Rectangle(180, 155, 810, 1125);
                         blockSize = 51;
                         param1 = 15;
                         erodeI = 3;
                         dilateI = 3;
-                        minRectSide = 10;
+                        minRectSide = 5;
                         maxRectSide = 50;
                         break;
                     case AssessmentType.Item100:
-                        roi = new Rectangle(180, 155, 810, 1110);
+                        roi = new Rectangle(180, 155, 810, 1125);
                         blockSize = 51;
                         param1 = 15;
                         erodeI = 3;
                         dilateI = 3;
-                        minRectSide = 10;
+                        minRectSide = 5;
                         maxRectSide = 50;
                         break;
                 }

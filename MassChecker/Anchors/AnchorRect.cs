@@ -6,7 +6,7 @@ namespace MassChecker.Anchors
     {
         #region Constructor
 
-        internal AnchorRect(int baseWidth, int baseHeight, double aspectRatio, double paddingRatio, double rectOverMainRatio, double headerHeightRatio)
+        internal AnchorRect(int baseWidth, int baseHeight, double aspectRatio, double paddingRatio, double rectOverMainRatio, double headerHeightRatio, int bottomOffset)
         {
             Width = baseWidth;
             Height = baseHeight;
@@ -14,6 +14,7 @@ namespace MassChecker.Anchors
             PaddingRatio = paddingRatio;
             RectOverMainRatio = rectOverMainRatio;
             HeaderHeightRatio = headerHeightRatio;
+            BottomOffset = bottomOffset;
             InitAnchor();
         }
 
@@ -54,14 +55,14 @@ namespace MassChecker.Anchors
                 MainAnchor.Top + (int)(RectAnchorSide + RectAnchorSide * 0.25));
             AnchorBL = new Rect(
                 MainAnchor.Left,
-                MainAnchor.Bottom - RectAnchorSide,
+                MainAnchor.Bottom - RectAnchorSide - BottomOffset,
                 MainAnchor.Left + RectAnchorSide,
-                MainAnchor.Bottom);
+                MainAnchor.Bottom - BottomOffset);
             AnchorBR = new Rect(
                 MainAnchor.Right - RectAnchorSide,
-                MainAnchor.Bottom - RectAnchorSide,
+                MainAnchor.Bottom - RectAnchorSide - BottomOffset,
                 MainAnchor.Right,
-                MainAnchor.Bottom);
+                MainAnchor.Bottom - BottomOffset);
         }
 
         #endregion
@@ -74,6 +75,7 @@ namespace MassChecker.Anchors
         internal double PaddingRatio;
         internal double RectOverMainRatio;
         internal double HeaderHeightRatio;
+        internal int BottomOffset;
 
         internal int Padding { get { return (int)(Width * PaddingRatio); } }
         internal int HeaderHeight { get { return (int)(MainAnchor.Height * HeaderHeightRatio); } }
