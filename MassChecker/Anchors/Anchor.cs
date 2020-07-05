@@ -38,28 +38,28 @@ namespace MassChecker.Anchors
             switch (assessment.AssessmentType)
             {
                 case AssessmentType.Item10:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 0.7047, 0, 0.225, 0.28, 0);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 0.7047, 0.225, 0.28, 0, 0, 0, 0);
                     PaperParser = new PaperParser(AnchorRect, 0.25, 0.25, 0.004, 0.2);
                     SetParser = new SetParser(0.51, 0.5, 0.975, 1);
                     ItemParsers.Add(new ItemParser(0.05, 0.12, 0.447, 0.87, 1, 5));
                     ItemParsers.Add(new ItemParser(0.5475, 0.12, 0.945, 0.87, 6, 5));
                     break;
                 case AssessmentType.Item20:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.383, 0, 0.225, 0.13, 0);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.383, 0.225, 0.13, 0, 0, 0, 0);
                     PaperParser = new PaperParser(AnchorRect, 0.25, 0.2, 0.004, 0.2);
                     SetParser = new SetParser(0.51, 0.5, 0.975, 1);
                     ItemParsers.Add(new ItemParser(0.055, 0.03, 0.45, 0.96, 1, 10));
                     ItemParsers.Add(new ItemParser(0.5525, 0.03, 0.94, 0.96, 11, 10));
                     break;
                 case AssessmentType.Item30:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.383, 0, 0.225, 0.13, 0);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.383, 0.225, 0.13, 0, 0, 0, 0);
                     PaperParser = new PaperParser(AnchorRect, 0.25, 0.2, 0.004, 0.2);
                     SetParser = new SetParser(0.51, 0.5, 0.975, 1);
                     ItemParsers.Add(new ItemParser(0.0525, 0.05, 0.4494, 0.945, 1, 15));
                     ItemParsers.Add(new ItemParser(0.55, 0.05, 0.9425, 0.945, 16, 15));
                     break;
                 case AssessmentType.Item40:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4091, 0, 0.225, 0.085, 0);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4091, 0.225, 0.085, 0, 0, 0, 0);
                     PaperParser = new PaperParser(AnchorRect, 0.25, 0.2, 0.0035, 0.2);
                     SetParser = new SetParser(0.65, 0.5, 0.96, 1);
                     ItemParsers.Add(new ItemParser(0.071, 0.0458, 0.33, 0.955, 1, 15));
@@ -67,7 +67,7 @@ namespace MassChecker.Anchors
                     ItemParsers.Add(new ItemParser(0.677, 0.0458, 0.9375, 0.655, 31, 10));
                     break;
                 case AssessmentType.Item50:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4759, 0, 0.225, 0.081, 0);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4759, 0.15, 0.081, 25, 0, 25, 25);
                     PaperParser = new PaperParser(AnchorRect, 0.25, 0.2, 0.0035, 0.2);
                     SetParser = new SetParser(0.65, 0.5, 0.96, 1);
                     ItemParsers.Add(new ItemParser(0.07, 0.05, 0.328, 0.95, 1, 20));
@@ -75,7 +75,7 @@ namespace MassChecker.Anchors
                     ItemParsers.Add(new ItemParser(0.68, 0.05, 0.937, 0.495, 41, 10));
                     break;
                 case AssessmentType.Item60:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4759, 0, 0.225, 0.081, 0);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4759, 0.15, 0.081, 25, 0, 25, 25);
                     PaperParser = new PaperParser(AnchorRect, 0.25, 0.2, 0.0035, 0.2);
                     SetParser = new SetParser(0.65, 0.5, 0.96, 1);
                     ItemParsers.Add(new ItemParser(0.07, 0.05, 0.328, 0.95, 1, 20));
@@ -83,8 +83,8 @@ namespace MassChecker.Anchors
                     ItemParsers.Add(new ItemParser(0.68, 0.05, 0.937, 0.95, 41, 20));
                     break;
                 case AssessmentType.Item70:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.3497, 0, 0.225, 0.065, 75);
-                    PaperParser = new PaperParser(AnchorRect, 0.25, 0.2, 0.003, 0.2);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.3497, 0.15, 0.065, 25, 0, 25, 90);
+                    PaperParser = new PaperParser(AnchorRect, 0.25, 0.2, 0.00325, 0.2);
                     SetParser = new SetParser(0.75, 0.45, 0.968, 1);
                     ItemParsers.Add(new ItemParser(0.047, 0.03, 0.232, 0.964, 1, 20));
                     ItemParsers.Add(new ItemParser(0.288, 0.03, 0.472, 0.964, 21, 20));
@@ -92,8 +92,8 @@ namespace MassChecker.Anchors
                     ItemParsers.Add(new ItemParser(0.765, 0.03, 0.95, 0.5, 61, 10));
                     break;
                 case AssessmentType.Item80:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.3497, 0, 0.225, 0.065, 75);
-                    PaperParser = new PaperParser(AnchorRect, 0.25, 0.2, 0.003, 0.2);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.3497, 0.15, 0.065, 25, 0, 25, 90);
+                    PaperParser = new PaperParser(AnchorRect, 0.25, 0.2, 0.00325, 0.2);
                     SetParser = new SetParser(0.75, 0.45, 0.968, 1);
                     ItemParsers.Add(new ItemParser(0.047, 0.03, 0.232, 0.964, 1, 20));
                     ItemParsers.Add(new ItemParser(0.288, 0.03, 0.472, 0.964, 21, 20));
@@ -101,8 +101,8 @@ namespace MassChecker.Anchors
                     ItemParsers.Add(new ItemParser(0.765, 0.03, 0.95, 0.964, 61, 20));
                     break;
                 case AssessmentType.Item90:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4344, 0, 0.225, 0.0575, 20);
-                    PaperParser = new PaperParser(AnchorRect, 0.3, 0.25, 0.003, 0.2);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4344, 0.15, 0.0575, 25, 0, 25, 40);
+                    PaperParser = new PaperParser(AnchorRect, 0.3, 0.25, 0.00325, 0.2);
                     SetParser = new SetParser(0.75, 0.45, 0.968, 1);
                     ItemParsers.Add(new ItemParser(0.047, 0.03, 0.232, 0.964, 1, 25));
                     ItemParsers.Add(new ItemParser(0.288, 0.03, 0.472, 0.964, 26, 25));
@@ -110,8 +110,8 @@ namespace MassChecker.Anchors
                     ItemParsers.Add(new ItemParser(0.765, 0.03, 0.95, 0.588, 76, 15));
                     break;
                 case AssessmentType.Item100:
-                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4344, 0, 0.225, 0.0575, 20);
-                    PaperParser = new PaperParser(AnchorRect, 0.3, 0.25, 0.003, 0.2);
+                    AnchorRect = new AnchorRect(baseWidth, baseHeight, 1.4344, 0.15, 0.0575, 25, 0, 25, 40);
+                    PaperParser = new PaperParser(AnchorRect, 0.3, 0.25, 0.00325, 0.2);
                     SetParser = new SetParser(0.75, 0.45, 0.968, 1);
                     ItemParsers.Add(new ItemParser(0.047, 0.03, 0.232, 0.964, 1, 25));
                     ItemParsers.Add(new ItemParser(0.288, 0.03, 0.472, 0.964, 26, 25));

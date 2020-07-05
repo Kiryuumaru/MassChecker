@@ -64,9 +64,15 @@ namespace MassChecker.Forms
                     buttonStart.Enabled = connected;
                     if (!connected)
                     {
-                        if (MessageBox.Show("Scanner was disconnected", "Disconnected", MessageBoxButtons.RetryCancel, MessageBoxIcon.Information) == DialogResult.Retry)
+                        Connect connect = new Connect();
+                        connect.ShowDialog();
+                        if (connect.Auto)
                         {
-                            Scanner.Start();
+                            Scanner.Start(logger: Log);
+                        }
+                        else
+                        {
+                            Scanner.Start(ip: connect.IPAddress, logger: Log);
                         }
                     }
                 }));
@@ -77,7 +83,7 @@ namespace MassChecker.Forms
                 Log("Image fetched");
 
             });
-            Scanner.Start();
+            Scanner.Start(logger: Log);
             ML.Init(Log);
         }
 

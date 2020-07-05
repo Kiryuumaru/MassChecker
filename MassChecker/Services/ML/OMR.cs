@@ -36,7 +36,7 @@ namespace MassChecker.Services
 
             public static void ProcessFile(AssessmentType type, ImageBox frameGrabber, string filename)
             {
-                Rectangle roi = new Rectangle(180, 155, 810, 1125);
+                Rectangle roi = new Rectangle(165, 175, 810, 1125);
                 int blockSize = 51;
                 double param1 = 15;
                 int erodeI = 3;
@@ -46,7 +46,6 @@ namespace MassChecker.Services
                 switch (type)
                 {
                     case AssessmentType.Item50:
-                        roi = new Rectangle(180, 155, 810, 1125);
                         blockSize = 51;
                         param1 = 15;
                         erodeI = 3;
@@ -55,7 +54,6 @@ namespace MassChecker.Services
                         maxRectSide = 50;
                         break;
                     case AssessmentType.Item60:
-                        roi = new Rectangle(180, 155, 810, 1125);
                         blockSize = 51;
                         param1 = 15;
                         erodeI = 3;
@@ -64,7 +62,6 @@ namespace MassChecker.Services
                         maxRectSide = 50;
                         break;
                     case AssessmentType.Item70:
-                        roi = new Rectangle(180, 155, 810, 1125);
                         blockSize = 51;
                         param1 = 15;
                         erodeI = 3;
@@ -73,7 +70,6 @@ namespace MassChecker.Services
                         maxRectSide = 50;
                         break;
                     case AssessmentType.Item80:
-                        roi = new Rectangle(180, 155, 810, 1125);
                         blockSize = 51;
                         param1 = 15;
                         erodeI = 3;
@@ -82,7 +78,6 @@ namespace MassChecker.Services
                         maxRectSide = 50;
                         break;
                     case AssessmentType.Item90:
-                        roi = new Rectangle(180, 155, 810, 1125);
                         blockSize = 51;
                         param1 = 15;
                         erodeI = 3;
@@ -91,7 +86,6 @@ namespace MassChecker.Services
                         maxRectSide = 50;
                         break;
                     case AssessmentType.Item100:
-                        roi = new Rectangle(180, 155, 810, 1125);
                         blockSize = 51;
                         param1 = 15;
                         erodeI = 3;
@@ -139,7 +133,7 @@ namespace MassChecker.Services
                     }
                 }
                 anchor.Process(filtered1);
-                anchorDiag.DrawNormal(crop);
+                anchorDiag.DrawDiagnostics(crop);
                 imageBoxFrameGrabber.Image = crop;
             }
         }

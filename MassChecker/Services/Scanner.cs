@@ -27,26 +27,53 @@ namespace MassChecker.Services
         private static bool scanning = false;
         private static ReactiveClient client;
 
-        public static void Start()
+        public static void Start(string ip = "", Action<string> logger = null)
         {
+            bool isTimeout = false;
+            bool isSuccess = false;
+            Task.Run(async delegate
+            {
+                await Task.Delay(10000);
+                isTimeout = true;
+                if (!isSuccess) connectionHandler?.Invoke(false);
+            });
             Task.Run(delegate
             {
-                UdpClient udpClient = new UdpClient(PortPinger);
-
-                var data = Encoding.UTF8.GetBytes("PING");
-                udpClient.Send(data, data.Length, "255.255.255.255", 8001);
-
-                var from = new IPEndPoint(0, 0);
-                while (true)
+                if (string.IsNullOrEmpty(ip))
                 {
-                    var recvBuffer = udpClient.Receive(ref from);
-                    string msg = Encoding.UTF8.GetString(recvBuffer);
-                    Console.WriteLine(msg);
-                    if (msg.Equals("PONG")) break;
+                    UdpClient udpClient = new UdpClient { EnableBroadcast = true };
+                    string HostName = Dns.GetHostName();
+                    IPAddress[] ipaddress = Dns.GetHostAddresses(HostName);
+                    foreach (IPAddress ip4 in ipaddress.Where(ipv4 => ipv4.AddressFamily == AddressFamily.InterNetwork))
+                    {
+                        Console.WriteLine(ip4.ToString());
+                        var data = Encoding.UTF8.GetBytes("PING");
+                        logger?.Invoke("Pinging broadcast: " + ip4.ToString().Substring(0, ip4.ToString().LastIndexOf('.')) + ".255");
+                        udpClient.Send(data, data.Length, ip4.ToString().Substring(0, ip4.ToString().LastIndexOf('.')) + ".255", PortPinger);
+                    }
+
+                    var from = new IPEndPoint(0, 0);
+                    while (true)
+                    {
+                        var recvBuffer = udpClient.Receive(ref from);
+                        string msg = Encoding.UTF8.GetString(recvBuffer);
+                        Console.WriteLine(msg);
+                        if (msg.Equals("PONG"))
+                        {
+                            logger?.Invoke("Scanner Found");
+                            break;
+                        }
+                    }
+
+                    if (isTimeout) return;
+
+                    client = new ReactiveClient(from.Address.ToString(), PortServer);
                 }
-
-                client = new ReactiveClient(from.Address.ToString(), PortServer);
-
+                else
+                {
+                    client = new ReactiveClient(ip, PortServer);
+                }
+                
                 List<byte> buffer = new List<byte>();
                 client.Receiver.Subscribe(sdata =>
                 {
@@ -72,6 +99,8 @@ namespace MassChecker.Services
                 client.Connected += delegate
                 {
                     Send("PING");
+                    isSuccess = true;
+                    logger?.Invoke("Scanner Connected");
                 };
                 client.Disconnected += delegate { connectionHandler?.Invoke(false); };
             });

@@ -36,9 +36,6 @@ namespace MassChecker.Diagnostics
         {
             if (anchor.PaperParser.MainReady)
             {
-                int xSetPos = anchor.SetParser.MainRect.TL.X + (int)((anchor.SetParser.MainRect.BL.X - anchor.SetParser.MainRect.TL.X) * 0.75);
-                int ySetPos = anchor.SetParser.MainRect.TL.Y + (int)((anchor.SetParser.MainRect.BL.Y - anchor.SetParser.MainRect.TL.Y) * 0.75);
-                
                 if (drawSetBorders)
                 {
                     image.DrawPolyline(anchor.SetParser.GetBorders(), false, rectColorTrue, 1);
@@ -46,31 +43,40 @@ namespace MassChecker.Diagnostics
 
                 if (drawResults && anchor.IsResultReady)
                 {
+                    string setText = "";
+                    Bgr color = ansColorIncorrect;
                     switch (anchor.AnswerParser.ParserResult)
                     {
                         case Models.AnswerParserResultType.DisabledSetShaded:
-                            image.Draw("Disabled set shaded", ref font, new System.Drawing.Point(xSetPos, ySetPos), ansColorIncorrect);
+                            setText = "Disabled set shaded";
+                            color = ansColorIncorrect;
                             break;
                         case Models.AnswerParserResultType.SetMultishaded:
-                            image.Draw("Multi set shaded", ref font, new System.Drawing.Point(xSetPos, ySetPos), ansColorIncorrect);
+                            setText = "Multi set shaded";
+                            color = ansColorIncorrect;
                             break;
                         case Models.AnswerParserResultType.SetUnshaded:
-                            image.Draw("No set shaded", ref font, new System.Drawing.Point(xSetPos, ySetPos), ansColorIncorrect);
+                            setText = "No set shaded";
+                            color = ansColorIncorrect;
                             break;
                         case Models.AnswerParserResultType.Undefined:
-                            image.Draw("Undefined", ref font, new System.Drawing.Point(xSetPos, ySetPos), ansColorIncorrect);
+                            setText = "Undefined";
+                            color = ansColorIncorrect;
                             break;
                         default:
                             switch (anchor.SetParser.SetParserResult)
                             {
                                 case SetParserResult.SetA:
-                                    image.Draw("Set A", ref font, new System.Drawing.Point(xSetPos, ySetPos), ansColorCorrect);
+                                    setText = "Set A";
+                                    color = ansColorCorrect;
                                     break;
                                 case SetParserResult.SetB:
-                                    image.Draw("Set B", ref font, new System.Drawing.Point(xSetPos, ySetPos), ansColorCorrect);
+                                    setText = "Set B";
+                                    color = ansColorCorrect;
                                     break;
                                 case SetParserResult.SetC:
-                                    image.Draw("Set C", ref font, new System.Drawing.Point(xSetPos, ySetPos), ansColorCorrect);
+                                    setText = "Set C";
+                                    color = ansColorCorrect;
                                     break;
                             }
                             foreach (ShadeItemKey s in anchor.ShadeItemKeys)
@@ -123,6 +129,7 @@ namespace MassChecker.Diagnostics
                             }
                             break;
                     }
+                    image.Draw(setText, ref font, new System.Drawing.Point(anchor.Width - setText.Length * 20, 30), color);
                 }
 
                 if (drawPaperBorder)
